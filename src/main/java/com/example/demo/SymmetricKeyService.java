@@ -32,8 +32,8 @@ public class SymmetricKeyService {
             throws NoSuchAlgorithmException, InvalidKeySpecException {
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
         KeySpec spec = new PBEKeySpec(secretKeyPassword.toCharArray(), secretKeySalt.getBytes(), 65536, 256);
-        return new SecretKeySpec(factory.generateSecret(spec)
-                .getEncoded(), "AES");
+        SecretKeySpec aes = new SecretKeySpec(factory.generateSecret(spec).getEncoded(), "AES");
+        return aes;
     }
 
     public String encrypt(byte[] rawText, SecretKey key) throws NoSuchPaddingException, NoSuchAlgorithmException,
